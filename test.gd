@@ -6,12 +6,14 @@ var previous_cas_intensity := 1.0
 var sway_camera := true
 var counter := 0.0
 
-func _process(delta):
+
+func _process(delta: float) -> void:
 	counter += delta
 	if sway_camera:
 		$Camera3D.rotation.y = TAU * 0.75 + sin(counter) * 0.1
 
-func _input(event):
+
+func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_info"):
 		$Info.visible = not $Info.visible
 
@@ -42,7 +44,7 @@ func _input(event):
 		sway_camera = not sway_camera
 
 
-func update_cas_label():
+func update_cas_label() -> void:
 	if is_zero_approx(get_viewport().sharpen_intensity):
 		$CASIntensity.text = "CAS: disabled"
 	else:

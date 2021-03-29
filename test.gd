@@ -1,3 +1,5 @@
+# Copyright © 2021 Hugo Locurcio and contributors - MIT License
+# See `LICENSE.md` included in the source distribution for details.
 extends Node3D
 
 var previous_cas_intensity := 1.0

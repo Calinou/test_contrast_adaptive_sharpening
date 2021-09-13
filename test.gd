@@ -1,8 +1,8 @@
 # Copyright © 2021 Hugo Locurcio and contributors - MIT License
 # See `LICENSE.md` included in the source distribution for details.
-extends Node3D
+extends Spatial
 
-var previous_cas_intensity := 1.0
+var previous_cas_intensity := 0.5
 var sway_camera := true
 var counter := 0.0
 
@@ -10,7 +10,7 @@ var counter := 0.0
 func _process(delta: float) -> void:
 	counter += delta
 	if sway_camera:
-		$Camera3D.rotation.y = TAU * 0.75 + sin(counter) * 0.1
+		$Camera.rotation.y = TAU * 0.75 + sin(counter) * 0.1
 
 
 func _input(event: InputEvent) -> void:
@@ -26,10 +26,8 @@ func _input(event: InputEvent) -> void:
 		update_cas_label()
 
 	if event.is_action_pressed("toggle_fxaa"):
-		get_viewport().screen_space_aa = (
-			Viewport.SCREEN_SPACE_AA_FXAA if get_viewport().screen_space_aa == Viewport.SCREEN_SPACE_AA_DISABLED else Viewport.SCREEN_SPACE_AA_DISABLED
-		)
-		$FXAA.text = "FXAA: disabled" if get_viewport().screen_space_aa == Viewport.SCREEN_SPACE_AA_DISABLED else "FXAA: enabled"
+		get_viewport().fxaa = not get_viewport().fxaa
+		$FXAA.text = "FXAA: enabled" if get_viewport().fxaa else "FXAA: disabled"
 
 	if event.is_action_pressed("toggle_cas"):
 		if is_zero_approx(get_viewport().sharpen_intensity):
